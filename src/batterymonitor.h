@@ -2,6 +2,7 @@
 #define BATTERYMONITOR_H
 
 #include <QObject>
+#include <QImage>
 
 class BatteryMonitor : public QObject
 {
@@ -9,10 +10,14 @@ class BatteryMonitor : public QObject
 public:
     explicit BatteryMonitor(QObject *parent = 0);
 
+private:
+    QString chargeLog;
+
 signals:
 
 public slots:
     QString infoString();
+    QImage chargeGraph(int, int);
 
 };
 
