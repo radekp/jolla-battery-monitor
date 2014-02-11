@@ -1,7 +1,0 @@
-[Desktop Entry]
-Type=Application
-X-Nemo-Application-Type=silica-qt5
-Name=Battery monitor
-Icon=jolla-battery-monitor
-Exec=jolla-battery-monitor
-

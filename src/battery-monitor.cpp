@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
     // Register graph painted in QML
     qmlRegisterType<ChargeGraph>("com.github.radekp",  1, 0, "ChargeGraph");
 
-    view->setSource(SailfishApp::pathTo("qml/jolla-battery-monitor.qml"));
+    view->setSource(SailfishApp::pathTo("qml/battery-monitor.qml"));
     view->showFullScreen();
     return app->exec();
 }
