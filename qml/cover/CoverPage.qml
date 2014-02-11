@@ -35,18 +35,17 @@ CoverBackground {
     Label {
         id: label
         anchors.centerIn: parent
-        text: "My Cover"
+        text: "Battery monitor"
     }
 
     CoverActionList {
         id: coverAction
 
         CoverAction {
-            iconSource: "image://theme/icon-cover-next"
-        }
-
-        CoverAction {
-            iconSource: "image://theme/icon-cover-pause"
+            iconSource: "image://theme/icon-cover-refresh"
+            onTriggered: {
+                label.text = mon.readChargeCover()
+            }
         }
     }
 }

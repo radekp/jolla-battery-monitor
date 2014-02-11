@@ -30,7 +30,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-
+import com.github.radekp 1.0
 
 Page {
     id: page
@@ -41,9 +41,30 @@ Page {
 
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
+
             MenuItem {
-                text: "Charge graph"
-                onClicked: pageStack.push(Qt.resolvedUrl("SecondPage.qml"))
+                id: timerToggle
+                text: "Disable auto refresh"
+                onClicked: {
+                    if(timer.interval == 0) {
+                        timer.interval = 3000
+                        timerToggle.text = "Disable auto refresh"
+                        readCharge.visible = false
+                    }
+                    else {
+                        timer.interval = 0;
+                        timerToggle.text = "Enable auto refresh"
+                        readCharge.visible = true
+                    }
+                }
+            }
+            MenuItem {
+                id: readCharge
+                text: "Read charge"
+                onClicked: {
+                    label.text = mon.readCharge()
+                    graph.update()
+                }
             }
         }
 
@@ -57,19 +78,27 @@ Page {
 
             width: page.width
             spacing: Theme.paddingLarge
-            PageHeader {
-                title: "Jolla battery monitor"
+
+            ChargeGraph {
+                id: graph
+                width: page.width
+                height: page.height
             }
+
             Label {
                 id: label
                 x: Theme.paddingLarge
                 text: "Reading battery status..."
-                color: Theme.secondaryHighlightColor
                 font.pixelSize: Theme.fontSizeExtraSmall
             }
             Timer {
-                interval: 3000; running: true; repeat: true
-                onTriggered: label.text = mon.infoString()
+                id: timer
+                interval: 1000; running: true; repeat: true
+                onTriggered: {
+                    label.text = mon.readCharge()
+                    graph.update()
+                    timer.interval = 3000
+                }
             }
         }
     }

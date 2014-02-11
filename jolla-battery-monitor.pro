@@ -11,16 +11,19 @@ TARGET = jolla-battery-monitor
 CONFIG += sailfishapp
 
 SOURCES += src/jolla-battery-monitor.cpp \
-    src/batterymonitor.cpp
+    src/batterymonitor.cpp \
+    src/chargegraph.cpp \
+    src/chargeutils.cpp
 
 OTHER_FILES += qml/jolla-battery-monitor.qml \
     qml/cover/CoverPage.qml \
     qml/pages/FirstPage.qml \
-    qml/pages/SecondPage.qml \
     rpm/jolla-battery-monitor.spec \
     rpm/jolla-battery-monitor.yaml \
     jolla-battery-monitor.desktop
 
 HEADERS += \
-    src/batterymonitor.h
+    src/batterymonitor.h \
+    src/chargegraph.h \
+    src/chargeutils.h
 

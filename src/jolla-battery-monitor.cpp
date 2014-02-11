@@ -32,6 +32,9 @@
 #include <QtQuick>
 #endif
 
+#include <QQmlEngine>
+
+#include "chargegraph.h"
 #include "batterymonitor.h"
 #include <sailfishapp.h>
 
@@ -40,11 +43,15 @@ int main(int argc, char *argv[])
 {
     QGuiApplication *app = SailfishApp::application(argc, argv);
     QQuickView *view = SailfishApp::createView();
-    BatteryMonitor mon;
-    view->rootContext()->setContextProperty("mon", &mon);
+
+    // Make battery monitor instance accessible from QML
+    view->rootContext()->setContextProperty("mon", BatteryMonitor::getInstance());
+
+    // Register graph painted in QML
+    qmlRegisterType<ChargeGraph>("com.github.radekp",  1, 0, "ChargeGraph");
+
     view->setSource(SailfishApp::pathTo("qml/jolla-battery-monitor.qml"));
     view->showFullScreen();
     return app->exec();
-
 }
 

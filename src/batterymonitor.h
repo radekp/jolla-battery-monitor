@@ -2,7 +2,7 @@
 #define BATTERYMONITOR_H
 
 #include <QObject>
-#include <QImage>
+#include <QDateTime>
 
 class BatteryMonitor : public QObject
 {
@@ -10,15 +10,30 @@ class BatteryMonitor : public QObject
 public:
     explicit BatteryMonitor(QObject *parent = 0);
 
-private:
+    static BatteryMonitor * getInstance()
+    {
+        static BatteryMonitor instance;
+        return &instance;
+    }
+
     QString chargeLog;
+
+    int currentNow;
+
+    // Values used to compute current since last charge reading
+    QDateTime lastDt;
+    int lastCharge;
+
+    // We use current_now to approximate charge log until charge_now changes
+    int approxLogStart;
+    int approxCharge;
+    QDateTime approxDt;
 
 signals:
 
 public slots:
-    QString infoString();
-    QImage chargeGraph(int, int);
-
+    QString readCharge();
+    QString readChargeCover();
 };
 
 #endif // BATTERYMONITOR_H
