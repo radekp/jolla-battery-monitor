@@ -67,26 +67,23 @@ QString BatteryMonitor::readCharge()
     f.close();
 #endif
 
-    // Actual current - it updates quite often, but we can recompute it with
-    // precise value when charge_now changes
-    currentNow = getIntAttr("POWER_SUPPLY_CURRENT_NOW=", content);
-
     QDateTime now = QDateTime::currentDateTime();
     int chargeNow = getIntAttr("POWER_SUPPLY_CHARGE_NOW=", content);
 
-    if(chargeNow != lastCharge) {
+    // Compute current since lastDt
+    currentNow = computeCurrent(lastDt.secsTo(now), lastCharge, chargeNow);
+
+    if(currentNow) {
         chargeLog = chargeLog.left(approxLogStart);       // remove approximated log part
         chargeLog += mkLogLine(now, chargeNow);
         approxLogStart = chargeLog.length();
-
-        // Compute precise current since lastDt
-        currentNow = computeCurrent(lastDt.secsTo(now), lastCharge, chargeNow);
 
         lastCharge = approxCharge = chargeNow;
         lastDt = now;
     }
     else {
         // Use current_now which updates more often to guess discharging curve
+        currentNow = getIntAttr("POWER_SUPPLY_CURRENT_NOW=", content);
         approxCharge = computeCharge(approxDt.secsTo(now), currentNow, approxCharge);
         chargeLog += mkLogLine(now, approxCharge);
     }
