@@ -49,6 +49,7 @@ void ChargeGraph::paint(QPainter *p)
     p->setBackground(Qt::black);
     p->setBrush(Qt::white);
     p->setPen(Qt::white);
+    p->setFont(QFont(p->font().family(), 11, QFont::Bold));
 
     int fontW = p->fontMetrics().width('w');
     int fontH = p->fontMetrics().height();
@@ -142,23 +143,3 @@ void ChargeGraph::paint(QPainter *p)
         }
     }
 }
-
-/*
-void ChargeGraph::paint(QPainter *painter)
-{
-    QBrush brush(QColor("#007430"));
-
-    painter->setBrush(brush);
-    painter->setPen(Qt::NoPen);
-    painter->setRenderHint(QPainter::Antialiasing);
-
-    painter->drawRoundedRect(0, 0, boundingRect().width(), boundingRect().height() - 10, 10, 10);
-
-        const QPointF points[3] = {
-            QPointF(10.0, boundingRect().height() - 10.0),
-            QPointF(20.0, boundingRect().height()),
-            QPointF(30.0, boundingRect().height() - 10.0),
-        };
-        painter->drawConvexPolygon(points, 3);
-}
-*/
