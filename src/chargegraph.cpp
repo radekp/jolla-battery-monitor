@@ -45,7 +45,7 @@ void ChargeGraph::paint(QPainter *p)
     if (chargeMax == 0 || totalSecs == 0)
         return;
 
-    p->fillRect(0, 0, width(), height(), Qt::black);
+    //p->fillRect(0, 0, width(), height(), Qt::black);
     p->setBackground(Qt::black);
     p->setBrush(Qt::white);
     p->setPen(Qt::white);
