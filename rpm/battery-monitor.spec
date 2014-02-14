@@ -13,23 +13,22 @@ Name:       battery-monitor
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Simple battery monitor that shows battery info and discharging graph.
-Version:    1.1
+Version:    1.3
 Release:    1
 Group:      Qt/Qt
-License:    LICENSE
+License:    GPL2
 URL:        http://example.org/
 Source0:    %{name}-%{version}.tar.bz2
 Source100:  battery-monitor.yaml
 Requires:   sailfishsilica-qt5 >= 0.10.9
-BuildRequires:  pkgconfig(sailfishapp) >= 0.0.10
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Qml)
 BuildRequires:  pkgconfig(Qt5Quick)
+BuildRequires:  pkgconfig(Qt5Qml)
+BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires:  pkgconfig(sailfishapp) >= 0.0.10
 BuildRequires:  desktop-file-utils
 
 %description
-Short description of my SailfishOS Application
-
+Battery monitor that reads charge information and draws graph. It uses charge_now value for long interval plot and current_now for short intervals. You can disable auto refresing and manually update the graph.
 
 %prep
 %setup -q -n %{name}-%{version}
@@ -63,13 +62,13 @@ desktop-file-install --delete-original       \
 
 %files
 %defattr(-,root,root,-)
-/usr/share/icons/hicolor/86x86/apps
-/usr/share/applications
-/usr/share/battery-monitor
-/usr/bin
-%{_datadir}/icons/hicolor/86x86/apps/%{name}.png
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/%{name}/qml
 %{_bindir}
+%{_datadir}/%{name}/qml
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/86x86/apps/%{name}.png
+/usr/bin
+/usr/share/battery-monitor
+/usr/share/applications
+/usr/share/icons/hicolor/86x86/apps
 # >> files
 # << files
