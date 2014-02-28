@@ -30,12 +30,13 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import com.github.radekp 1.0
 
 CoverBackground {
-    Label {
-        id: label
-        anchors.centerIn: parent
-        text: "Battery monitor"
+    ChargeGraph {
+        id: graph
+        width: parent.width
+        height: parent.height
     }
 
     CoverActionList {
@@ -44,7 +45,8 @@ CoverBackground {
         CoverAction {
             iconSource: "image://theme/icon-cover-refresh"
             onTriggered: {
-                label.text = mon.readChargeCover()
+                mon.readChargeCover()
+                graph.update()
             }
         }
     }

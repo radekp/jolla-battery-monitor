@@ -37,8 +37,11 @@ void ChargeGraph::paint(QPainter *p)
         chargeMax = (chargeMax > charge ? chargeMax : charge);
     }
 
+    int fontW = p->fontMetrics().width('w');
+    int fontH = p->fontMetrics().height();
+
     int w = (9 * width()) / 10;
-    int h = (9 * height()) / 10;
+    int h = height() - (5 * fontH) / 2;
 
     int totalSecs = dtMin.secsTo(dtMax);
 
@@ -50,9 +53,6 @@ void ChargeGraph::paint(QPainter *p)
     p->setBrush(Qt::white);
     p->setPen(Qt::white);
     p->setFont(QFont(p->font().family(), 11, QFont::Bold));
-
-    int fontW = p->fontMetrics().width('w');
-    int fontH = p->fontMetrics().height();
 
     p->translate(fontW, fontH);
 
