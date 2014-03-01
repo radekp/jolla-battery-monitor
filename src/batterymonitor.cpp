@@ -9,7 +9,7 @@
 BatteryMonitor::BatteryMonitor(QObject *parent) :
     QObject(parent)
 {
-    //chargeLog = "2014-02-11 10:00:00\t1000000\n2014-02-11 11:00:00\t950000\n2014-02-11 12:00:00\t850000\n";
+    //chargeLog = "2014-02-11 10:00:00\t1000000\n2014-02-11 11:00:00\t950000\n2014-02-11 12:00:00\t850000\n\n2014-02-11 13:00:00\t100000\n2014-02-11 14:00:00\t20000\n2014-02-11 14:30:00\t0\n";
 }
 
 // Parse uevent string and return given attribute value. Example uevent file:
