@@ -96,7 +96,7 @@ ApplicationWindow
                     onClicked: {
                         label.text = mon.readCharge()
                         graph.update()
-
+                        coverGraph.update()
                     }
                 }
             }
@@ -129,9 +129,8 @@ ApplicationWindow
                     interval: 1000; running: true; repeat: true
                     onTriggered: {
                         label.text = mon.readCharge()
-                        graph.update()
-                        coverGraph.update()
                         timer.interval = 3000
+                        graph.update()
                         coverGraph.update()
                     }
                 }
