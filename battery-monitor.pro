@@ -16,8 +16,6 @@ SOURCES += src/battery-monitor.cpp \
     src/chargeutils.cpp
 
 OTHER_FILES += qml/battery-monitor.qml \
-    qml/cover/CoverPage.qml \
-    qml/pages/FirstPage.qml \
     rpm/battery-monitor.spec \
     rpm/battery-monitor.yaml \
     battery-monitor.desktop

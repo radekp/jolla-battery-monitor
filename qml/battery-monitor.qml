@@ -31,11 +31,118 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import "pages"
+import "cover"
+import com.github.radekp 1.0
+
 
 ApplicationWindow
 {
-    initialPage: Component { FirstPage { } }
-    cover: Qt.resolvedUrl("cover/CoverPage.qml")
+    // Cover
+    CoverBackground {
+        id: myCover
+
+        ChargeGraph {
+            id: coverGraph
+            width: parent.width
+            height: parent.height
+        }
+
+        CoverActionList {
+            id: coverAction
+
+            CoverAction {
+                iconSource: "image://theme/icon-cover-refresh"
+                onTriggered: {
+                    label.text = mon.readCharge()
+                    graph.update()
+                    coverGraph.update()
+                }
+            }
+        }
+    }
+
+    // First page
+    Page {
+
+        id: firstPage
+        allowedOrientations: Orientation.All
+
+        // To enable PullDownMenu, place our content in a SilicaFlickable
+        SilicaFlickable {
+            anchors.fill: parent
+
+            // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
+            PullDownMenu {
+
+                MenuItem {
+                    id: timerToggle
+                    text: "Disable auto refresh"
+                    onClicked: {
+                        if(timer.interval == 0) {
+                            timer.interval = 3000
+                            timerToggle.text = "Disable auto refresh"
+                            readCharge.visible = false
+                        }
+                        else {
+                            timer.interval = 0;
+                            timerToggle.text = "Enable auto refresh"
+                            readCharge.visible = true
+                        }
+                    }
+                }
+                MenuItem {
+                    id: readCharge
+                    text: "Read charge"
+                    onClicked: {
+                        label.text = mon.readCharge()
+                        graph.update()
+
+                    }
+                }
+            }
+
+            // Tell SilicaFlickable the height of its content.
+            contentHeight: column.height
+
+            // Place our content in a Column.  The PageHeader is always placed at the top
+            // of the page, followed by our content.
+            Column {
+                id: column
+
+                width: firstPage.width
+                spacing: Theme.paddingLarge
+
+                ChargeGraph {
+                    id: graph
+                    width: firstPage.width
+                    height: firstPage.height
+                }
+
+                Label {
+                    id: label
+                    x: Theme.paddingLarge
+                    text: "Reading battery status..."
+                    font.pixelSize: Theme.fontSizeExtraSmall
+                }
+                Timer {
+                    id: timer
+                    interval: 1000; running: true; repeat: true
+                    onTriggered: {
+                        label.text = mon.readCharge()
+                        graph.update()
+                        coverGraph.update()
+                        timer.interval = 3000
+                        coverGraph.update()
+                    }
+                }
+            }
+        }
+    }
+
+    // ApplicationWindow properties
+    cover: myCover
+    initialPage: firstPage
+
 }
 
 
