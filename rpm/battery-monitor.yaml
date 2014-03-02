@@ -1,6 +1,6 @@
 Name: battery-monitor
 Summary: Simple battery monitor that shows battery info and discharging graph.
-Version: 1.4
+Version: 1.5
 Release: 1
 Group: Qt/Qt
 URL: http://example.org/

@@ -13,7 +13,7 @@ Name:       battery-monitor
 %{!?qtc_make:%define qtc_make make}
 %{?qtc_builddir:%define _builddir %qtc_builddir}
 Summary:    Simple battery monitor that shows battery info and discharging graph.
-Version:    1.4
+Version:    1.5
 Release:    1
 Group:      Qt/Qt
 License:    GPL2
